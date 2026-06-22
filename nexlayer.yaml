@@ -1,0 +1,31 @@
+application:
+  name: documenso
+  pods:
+  - name: app
+    image: documenso/documenso:latest
+    path: /
+    servicePorts:
+    - 3000
+    vars:
+      DATABASE_URL: "postgresql://documenso:documenso@postgres.pod:5432/documenso"
+      NEXTAUTH_SECRET: "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4"
+      NEXTAUTH_URL: "https://relaxed-weasel-documenso.cloud.nexlayer.ai"
+      NEXT_PUBLIC_WEBAPP_URL: "https://relaxed-weasel-documenso.cloud.nexlayer.ai"
+      SIGNING_PASSPHRASE: "nexlayer-signing-pass"
+      SIGNING_LOCAL_FILE_PATH: "/opt/documenso/cert.p12"
+    volumes:
+    - name: documenso-certs
+      mountPath: /opt/documenso
+      size: 1Gi
+  - name: postgres
+    image: postgres:16-alpine
+    servicePorts:
+    - 5432
+    vars:
+      POSTGRES_DB: documenso
+      POSTGRES_USER: documenso
+      POSTGRES_PASSWORD: documenso
+    volumes:
+    - name: documenso-db
+      mountPath: /var/lib/postgresql/data
+      size: 5Gi
