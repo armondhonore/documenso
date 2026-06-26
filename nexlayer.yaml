@@ -2,7 +2,7 @@ application:
   name: documenso
   pods:
   - name: app
-    image: documenso/documenso:latest
+    image: mirror.gcr.io/documenso/documenso:latest
     path: /
     servicePorts:
     - 3000
@@ -18,7 +18,7 @@ application:
       mountPath: /opt/documenso
       size: 1Gi
   - name: postgres
-    image: postgres:16-alpine
+    image: mirror.gcr.io/library/postgres:16-alpine
     servicePorts:
     - 5432
     vars:
